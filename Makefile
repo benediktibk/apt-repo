@@ -3,8 +3,9 @@
 APTREPOSHARE := /tmp/apt-repo-share
 COMMONDEPENDENCIES := Makefile build/guard $(APTREPOSHARE)/guard
 WORKINGDIRECTORY := $(shell pwd)
+GPGKEY := benediktibk@gmail.com
 
-all: $(APTREPOSHARE)/dists/stable/Release
+all: $(APTREPOSHARE)/dists/stable/Release.gpg $(APTREPOSHARE)/dists/stable/InRelease
 
 clean:
 	rm -fR build
@@ -32,6 +33,12 @@ $(APTREPOSHARE)/dists/stable/main/binary-amd64/Packages.gz: $(APTREPOSHARE)/dist
 
 $(APTREPOSHARE)/dists/stable/Release: $(COMMONDEPENDENCIES) $(APTREPOSHARE)/dists/stable/main/binary-amd64/Packages.gz
 	cd $(APTREPOSHARE)/dists/stable && $(WORKINGDIRECTORY)/generate-release.sh > Release
+
+$(APTREPOSHARE)/dists/stable/Release.gpg: $(APTREPOSHARE)/dists/stable/Release $(COMMONDEPENDENCIES)
+	cat $< | gpg --default-key $(GPGKEY) -abs > $@
+
+$(APTREPOSHARE)/dists/stable/InRelease: $(APTREPOSHARE)/dists/stable/Release $(COMMONDEPENDENCIES)
+	cat $< | gpg --default-key $(GPGKEY) -abs --clearsign > $@
 
 gitkraken: build/gitkraken/gitkraken-amd64.deb $(COMMONDEPENDENCIES) $(APTREPOSHARE)/guard
 	rsync $< $(APTREPOSHARE)/pool/main/gitkraken_$(shell dpkg-deb --field $< Version)_amd64.deb
