@@ -43,7 +43,7 @@ $(APTREPOSHARE)/benediktibk.gpg: benediktibk.gpg $(COMMONDEPENDENCIES)
 	cp $< $@
 
 gitkraken: build/gitkraken/gitkraken-amd64.deb $(COMMONDEPENDENCIES) $(APTREPOSHARE)/guard
-	rsync $< $(APTREPOSHARE)/pool/main/gitkraken_$(shell dpkg-deb --field $< Version)_amd64.deb
+	cp $< $(APTREPOSHARE)/pool/main/gitkraken_$(shell dpkg-deb --field $< Version)_amd64.deb
 
 build/gitkraken/gitkraken-amd64.deb: $(COMMONDEPENDENCIES)
 	echo "already done"
