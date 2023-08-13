@@ -1,6 +1,5 @@
 #!/usr/bin/make -f
-#APTREPOSHARE := /mnt/apt-repo-share
-APTREPOSHARE := /tmp/apt-repo-share
+APTREPOSHARE := /mnt/apt-repo-share
 COMMONDEPENDENCIES := Makefile build/guard $(APTREPOSHARE)/guard
 WORKINGDIRECTORY := $(shell pwd)
 GPGKEY := benediktibk@gmail.com
@@ -45,4 +44,4 @@ gitkraken: build/gitkraken/gitkraken-amd64.deb $(COMMONDEPENDENCIES) $(APTREPOSH
 
 build/gitkraken/gitkraken-amd64.deb: $(COMMONDEPENDENCIES)
 	echo "already done"
-#	wget https://release.gitkraken.com/linux/gitkraken-amd64.deb --directory-prefix=build/gitkraken
+	wget https://release.gitkraken.com/linux/gitkraken-amd64.deb --directory-prefix=build/gitkraken
