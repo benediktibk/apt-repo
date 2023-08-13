@@ -4,7 +4,7 @@ COMMONDEPENDENCIES := Makefile build/guard $(APTREPOSHARE)/guard
 WORKINGDIRECTORY := $(shell pwd)
 GPGKEY := benediktibk@gmail.com
 
-all: $(APTREPOSHARE)/dists/stable/Release.gpg $(APTREPOSHARE)/dists/stable/InRelease
+all: $(APTREPOSHARE)/dists/stable/Release.gpg $(APTREPOSHARE)/dists/stable/InRelease $(APTREPOSHARE)/benediktibk.gpg
 
 clean:
 	rm -fR build
@@ -38,6 +38,9 @@ $(APTREPOSHARE)/dists/stable/Release.gpg: $(APTREPOSHARE)/dists/stable/Release $
 
 $(APTREPOSHARE)/dists/stable/InRelease: $(APTREPOSHARE)/dists/stable/Release $(COMMONDEPENDENCIES)
 	cat $< | gpg --default-key $(GPGKEY) -abs --clearsign > $@
+
+$(APTREPOSHARE)/benediktibk.gpg: benediktibk.gpg $(COMMONDEPENDENCIES)
+	cp $< $@
 
 gitkraken: build/gitkraken/gitkraken-amd64.deb $(COMMONDEPENDENCIES) $(APTREPOSHARE)/guard
 	rsync $< $(APTREPOSHARE)/pool/main/gitkraken_$(shell dpkg-deb --field $< Version)_amd64.deb
