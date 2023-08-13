@@ -1,8 +1,10 @@
 #!/usr/bin/make -f
 APTREPOSHARE := /mnt/apt-repo-share
-COMMONDEPENDENCIES := Makefile build/guard $(APTREPOSHARE)/guard
+COMMONDEPENDENCIES := Makefile build/guard $(APTREPOSHARE)/guard anki/anki.mk
 WORKINGDIRECTORY := $(shell pwd)
 GPGKEY := benediktibk@gmail.com
+
+include anki/anki.mk
 
 all: $(APTREPOSHARE)/dists/stable/Release.gpg $(APTREPOSHARE)/dists/stable/InRelease $(APTREPOSHARE)/benediktibk.gpg
 
@@ -12,6 +14,7 @@ clean:
 build/guard: Makefile
 	mkdir -p build
 	mkdir -p build/gitkraken
+	mkdir -p build/anki
 	touch $@
 
 $(APTREPOSHARE)/guard: Makefile
