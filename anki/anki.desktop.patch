@@ -1,0 +1,11 @@
+--- build/anki/anki-2.1.65/anki.desktop	2023-02-22 05:43:18.000000000 +0100
++++ build/anki/anki-2.1.65/anki.desktop.target	2023-08-14 21:27:16.304224419 +0200
+@@ -2,7 +2,7 @@
+ Name=Anki
+ Comment=An intelligent spaced-repetition memory training program
+ GenericName=Flashcards
+-Exec=anki %f
++Exec=env ANKI_WAYLAND=1 anki %f
+ TryExec=anki
+ Icon=anki
+ Categories=Education;Languages;KDE;Qt;
