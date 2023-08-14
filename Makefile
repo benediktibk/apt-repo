@@ -27,7 +27,7 @@ $(APTREPOSHARE)/guard: Makefile
 	mkdir -p $(APTREPOSHARE)/dists/stable/main/binary-amd64
 	touch $@
 
-$(APTREPOSHARE)/dists/stable/main/binary-amd64/Packages: $(COMMONDEPENDENCIES) gitkraken
+$(APTREPOSHARE)/dists/stable/main/binary-amd64/Packages: $(COMMONDEPENDENCIES) gitkraken anki
 	dpkg-scanpackages --arch amd64 $(APTREPOSHARE)/pool > $(APTREPOSHARE)/dists/stable/main/binary-amd64/Packages
 
 $(APTREPOSHARE)/dists/stable/main/binary-amd64/Packages.gz: $(APTREPOSHARE)/dists/stable/main/binary-amd64/Packages
