@@ -15,6 +15,7 @@ build/guard: Makefile
 	mkdir -p build
 	mkdir -p build/gitkraken
 	mkdir -p build/anki
+	mkdir -p build/dbeaver
 	touch $@
 
 $(APTREPOSHARE)/guard: Makefile
@@ -27,7 +28,7 @@ $(APTREPOSHARE)/guard: Makefile
 	mkdir -p $(APTREPOSHARE)/dists/stable/main/binary-amd64
 	touch $@
 
-$(APTREPOSHARE)/dists/stable/main/binary-amd64/Packages: $(COMMONDEPENDENCIES) gitkraken anki
+$(APTREPOSHARE)/dists/stable/main/binary-amd64/Packages: $(COMMONDEPENDENCIES) gitkraken anki dbeaver
 	cd $(APTREPOSHARE) && dpkg-scanpackages --arch amd64 pool > $(APTREPOSHARE)/dists/stable/main/binary-amd64/Packages
 
 $(APTREPOSHARE)/dists/stable/main/binary-amd64/Packages.gz: $(APTREPOSHARE)/dists/stable/main/binary-amd64/Packages
@@ -43,11 +44,16 @@ $(APTREPOSHARE)/dists/stable/InRelease: $(APTREPOSHARE)/dists/stable/Release $(C
 	cat $< | gpg --default-key $(GPGKEY) -abs --clearsign > $@
 
 $(APTREPOSHARE)/benediktibk.gpg: benediktibk.gpg $(COMMONDEPENDENCIES)
-	cp $< $@
+	rsync -ah --progress $< $@
 
 gitkraken: build/gitkraken/gitkraken-amd64.deb $(COMMONDEPENDENCIES) $(APTREPOSHARE)/guard
-	cp $< $(APTREPOSHARE)/pool/main/gitkraken_$(shell dpkg-deb --field $< Version)_amd64.deb
+	rsync -ah --progress $< $(APTREPOSHARE)/pool/main/gitkraken_$(shell dpkg-deb --field $< Version)_amd64.deb
 
 build/gitkraken/gitkraken-amd64.deb: $(COMMONDEPENDENCIES)
-	echo "already done"
 	wget https://release.gitkraken.com/linux/gitkraken-amd64.deb --directory-prefix=build/gitkraken
+
+dbeaver: build/dbeaver/dbeaver-ce_latest_amd64.deb $(COMMONDEPENDENCIES)
+	rsync -ah --progress $< $(APTREPOSHARE)/pool/main/dbeaver_$(shell dpkg-deb --field $< Version)_amd64.deb
+
+build/dbeaver/dbeaver-ce_latest_amd64.deb: $(COMMONDEPENDENCIES)
+	wget https://dbeaver.io/files/dbeaver-ce_latest_amd64.deb --output-document=$@
