@@ -31,7 +31,7 @@ $(APTREPOSHARE)/guard: Makefile
 	touch $@
 
 $(APTREPOSHARE)/dists/stable/main/binary-amd64/Packages: $(COMMONDEPENDENCIES) gitkraken anki dbeaver apache-directory-studio
-	cd $(APTREPOSHARE) && dpkg-scanpackages --arch amd64 pool > $(APTREPOSHARE)/dists/stable/main/binary-amd64/Packages
+	cd $(APTREPOSHARE) && dpkg-scanpackages --multiversion --arch amd64 pool > $(APTREPOSHARE)/dists/stable/main/binary-amd64/Packages
 
 $(APTREPOSHARE)/dists/stable/main/binary-amd64/Packages.gz: $(APTREPOSHARE)/dists/stable/main/binary-amd64/Packages
 	cat $< | gzip -9 > $@
