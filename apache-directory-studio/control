@@ -1,0 +1,5 @@
+Package: apache-directory-studio
+Version: ##VERSION##
+Architecture: amd64
+Maintainer: Benedikt Schmidt <benediktibk@gmail.com>
+Description: LDAP browser

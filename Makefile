@@ -5,6 +5,7 @@ WORKINGDIRECTORY := $(shell pwd)
 GPGKEY := benediktibk@gmail.com
 
 include anki/anki.mk
+include apache-directory-studio/apache-directory-studio.mk
 
 all: $(APTREPOSHARE)/dists/stable/Release.gpg $(APTREPOSHARE)/dists/stable/InRelease $(APTREPOSHARE)/benediktibk.gpg
 
@@ -16,6 +17,7 @@ build/guard: Makefile
 	mkdir -p build/gitkraken
 	mkdir -p build/anki
 	mkdir -p build/dbeaver
+	mkdir -p build/apache-directory-studio
 	touch $@
 
 $(APTREPOSHARE)/guard: Makefile
@@ -28,7 +30,7 @@ $(APTREPOSHARE)/guard: Makefile
 	mkdir -p $(APTREPOSHARE)/dists/stable/main/binary-amd64
 	touch $@
 
-$(APTREPOSHARE)/dists/stable/main/binary-amd64/Packages: $(COMMONDEPENDENCIES) gitkraken anki dbeaver
+$(APTREPOSHARE)/dists/stable/main/binary-amd64/Packages: $(COMMONDEPENDENCIES) gitkraken anki dbeaver apache-directory-studio
 	cd $(APTREPOSHARE) && dpkg-scanpackages --arch amd64 pool > $(APTREPOSHARE)/dists/stable/main/binary-amd64/Packages
 
 $(APTREPOSHARE)/dists/stable/main/binary-amd64/Packages.gz: $(APTREPOSHARE)/dists/stable/main/binary-amd64/Packages

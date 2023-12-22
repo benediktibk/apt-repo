@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Apache Directory Studio
+Comment=LDAP browser
+Exec=/opt/apache-directory-studio/ApacheDirectoryStudio
+TryExec=/opt/apache-directory-studio/ApacheDirectoryStudio
+Icon=apache-directory-studio
+Terminal=false
+Type=Application
+Version=1.0
