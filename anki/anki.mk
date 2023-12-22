@@ -1,5 +1,5 @@
 #!/usr/bin/make -f
-ANKIVERSION := 2.1.65
+ANKIVERSION := 23.10.1
 ANKIFILENAME := anki-$(ANKIVERSION)-linux-qt6
 ANKIRELEASEDOWNLOAD := https://github.com/ankitects/anki/releases/download/$(ANKIVERSION)/$(ANKIFILENAME).tar.zst
 
